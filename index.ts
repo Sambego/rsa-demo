@@ -57,7 +57,7 @@ const cipherText: bigInt.BigInteger = encrypt(message);
 const decryptedText: bigInt.BigInteger = decrypt(cipherText);
 
 console.log("----------------");
-console.log("The message to encrypt is", message);
-console.log("Encrypted message", cipherText);
-console.log("Decrypted message", decryptedText);
+console.log("The message to encrypt is", message.toJSNumber());
+console.log("Encrypted message", cipherText.toJSNumber());
+console.log("Decrypted message", decryptedText.toJSNumber());
 console.log("----------------");
