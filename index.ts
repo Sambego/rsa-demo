@@ -1,5 +1,5 @@
 // Imports
-import bigInt from "big-integer";
+import bigInt, { BaseArray } from "big-integer";
 
 // Helper functions
 const getRandomPrime = (bits: number): bigInt.BigInteger => {
@@ -17,11 +17,26 @@ const getRandomPrime = (bits: number): bigInt.BigInteger => {
 const getCoprime = (nr: bigInt.BigInteger) => {
   while (true) {
     const rand = getRandomPrime(32);
-    console.log("Random gcd:", bigInt.gcd(rand, nr));
     if (bigInt.gcd(rand, nr).equals(1)) {
       return rand;
     }
   }
+};
+
+const stringToBin = (str: string) => {
+  return str
+    .split("")
+    .map((char: string, index: number) => str.charCodeAt(index));
+};
+
+const binToString = (bin: bigInt.BaseArray): string => {
+  return Array.prototype.reduce.call(
+    bin.value,
+    (str: string, charCode: number) => {
+      return (str += String.fromCharCode(charCode));
+    },
+    ""
+  );
 };
 
 // Do the actual thing
@@ -41,23 +56,27 @@ n: ${n},
 d: ${d}
 ----------------`);
 
-const message: bigInt.BigInteger = bigInt(65);
-const encrypt = (message: bigInt.BigInteger) => {
-  console.log(`Encrypt: ${message} ^ ${e} % ${n}`);
+const message: string = "This is a secret message";
+const encrypt = (message: string): bigInt.BigInteger => {
+  const messageBin = stringToBin(message);
+  const messageBigInt = bigInt.fromArray(messageBin, 256);
+  console.log(`Encrypt: ${messageBigInt} ^ ${e} % ${n}`);
 
-  return bigInt(message).modPow(e, n);
+  return bigInt(messageBigInt).modPow(e, n);
 };
-const decrypt = (cipherText: bigInt.BigInteger) => {
-  console.log(`Decrypt: ${cipherText} ^ ${d} % ${n}`);
 
-  return bigInt(cipherText).modPow(d, n);
+const decrypt = (cipherText: bigInt.BigInteger): string => {
+  console.log(`Decrypt: ${cipherText} ^ ${d} % ${n}`);
+  const decryptedBigInt = bigInt(cipherText).modPow(d, n);
+  const decryptedBin = decryptedBigInt.toArray(256);
+  return binToString(decryptedBin);
 };
 
 const cipherText: bigInt.BigInteger = encrypt(message);
-const decryptedText: bigInt.BigInteger = decrypt(cipherText);
+const decryptedText: string = decrypt(cipherText);
 
 console.log("----------------");
-console.log("The message to encrypt is", message.toJSNumber());
-console.log("Encrypted message", cipherText.toJSNumber());
-console.log("Decrypted message", decryptedText.toJSNumber());
+console.log(`The message to encrypt is: "${message}"`);
+console.log(`Encrypted message: ${cipherText.toString(16)}`);
+console.log(`Decrypted message: ${decryptedText}`);
 console.log("----------------");
