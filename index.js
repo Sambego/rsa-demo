@@ -60,6 +60,6 @@ var cipherText = encrypt(message);
 var decryptedText = decrypt(cipherText);
 console.log("----------------");
 console.log("The message to encrypt is: \"" + message + "\"");
-console.log("Encrypted message: " + cipherText.toString(16));
+console.log("Encrypted message: " + cipherText.toString(64, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"));
 console.log("Decrypted message: " + decryptedText);
 console.log("----------------");
