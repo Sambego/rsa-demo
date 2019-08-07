@@ -1,5 +1,5 @@
 // Imports
-import bigInt, { BaseArray } from "big-integer";
+import bigInt from "big-integer";
 
 // Helper functions
 const getRandomPrime = (bits: number): bigInt.BigInteger => {
@@ -59,7 +59,7 @@ d: ${d}
 const message: string = "This is a secret message";
 const encrypt = (message: string): bigInt.BigInteger => {
   const messageBin = stringToBin(message);
-  const messageBigInt = bigInt.fromArray(messageBin, 256);
+  const messageBigInt = bigInt.fromArray(messageBin, 256); // UTF8 is 8 bit, so max 256 characters
   console.log(`Encrypt: ${messageBigInt} ^ ${e} % ${n}`);
 
   return bigInt(messageBigInt).modPow(e, n);
@@ -68,7 +68,7 @@ const encrypt = (message: string): bigInt.BigInteger => {
 const decrypt = (cipherText: bigInt.BigInteger): string => {
   console.log(`Decrypt: ${cipherText} ^ ${d} % ${n}`);
   const decryptedBigInt = bigInt(cipherText).modPow(d, n);
-  const decryptedBin = decryptedBigInt.toArray(256);
+  const decryptedBin = decryptedBigInt.toArray(256); // UTF8 is 8 bit, so max 256 characters
   return binToString(decryptedBin);
 };
 

@@ -46,14 +46,14 @@ console.log("----------------\np: " + p + ", \nq: " + q + ", \nn: " + n + ", \n\
 var message = "This is a secret message";
 var encrypt = function (message) {
     var messageBin = stringToBin(message);
-    var messageBigInt = big_integer_1["default"].fromArray(messageBin, 256);
+    var messageBigInt = big_integer_1["default"].fromArray(messageBin, 256); // UTF8 is 8 bit, so max 256 characters
     console.log("Encrypt: " + messageBigInt + " ^ " + e + " % " + n);
     return big_integer_1["default"](messageBigInt).modPow(e, n);
 };
 var decrypt = function (cipherText) {
     console.log("Decrypt: " + cipherText + " ^ " + d + " % " + n);
     var decryptedBigInt = big_integer_1["default"](cipherText).modPow(d, n);
-    var decryptedBin = decryptedBigInt.toArray(256);
+    var decryptedBin = decryptedBigInt.toArray(256); // UTF8 is 8 bit, so max 256 characters
     return binToString(decryptedBin);
 };
 var cipherText = encrypt(message);
