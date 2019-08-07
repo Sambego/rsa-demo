@@ -1,0 +1,30 @@
+{
+    "name": "rsa-demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "compile": "tsc index.ts --watch --esModuleInterop",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Sambego/rsa-demo.git"
+    },
+    "author": "Sam Bellen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Sambego/rsa-demo/issues"
+    },
+    "homepage": "https://github.com/Sambego/rsa-demo#readme",
+    "dependencies": {
+        "big-integer": "^1.6.44",
+        "mathjs": "^6.0.4",
+        "ts-node": "^8.3.0",
+        "typescript": "^3.5.3"
+    },
+    "devDependencies": {
+        "@types/mathjs": "^6.0.1",
+        "@types/node": "^12.7.0"
+    }
+}
